@@ -31,7 +31,7 @@ console.log(ipAdresim);
 */
 
 async function getData() {
-	return axios.get(`https://apis.ergineer.com/ipgeoapi/${ipAdresim}`).then((response) => {return response.data}).catch(error => {return error}).finally(() => {console.log('getdata çalıştı')})
+	return axios.get(`https://apis.ergineer.com/ipgeoapi/${ipAdresim}`).then((response) => {console.log(response);return response.data}).catch(error => {return error}).finally(() => {console.log('getdata çalıştı')})
 }
 /*
 	ADIM 2: Alınan veriyi sayfada gösterecek componentı oluşturmak
@@ -57,6 +57,7 @@ async function getData() {
 function cardOlustur(data) {
   const cardDiv = document.createElement("div");
   cardDiv.classList.add("card");
+
   const bayrakImg = document.createElement("img");
   bayrakImg.src = `https://flaglog.com/codes/standardized-rectangle-120px/${data.ülkeKodu}.png`;
   
@@ -70,8 +71,27 @@ function cardOlustur(data) {
 
   const ulke = document.createElement("p");
   ulke.classList.add("ulke");
-  ulke.textContent = `${data.ülke} ()${data.ülkeKodu}`
-  console.log(`${data.ülke} ()${data.ülkeKodu}`)
+  ulke.textContent = `${data.ülke} (${data.ülkeKodu})`
+
+  const coords = document.createElement("p");
+  coords.textContent = `Enlem: ${data.enlem} - Boylam: ${data.boylam}`
+
+  const sehir = document.createElement("p");
+  sehir.textContent = `Şehir: ${data.bölgeAdı}`
+
+  const saatDilimi = document.createElement("p");
+  saatDilimi.textContent = `Saat dilimi: ${data.saatdilimi}`
+
+  const paraBirimi = document.createElement("p");
+  paraBirimi.textContent = `Para birimi: ${data.parabirimi}`
+
+  const isp = document.createElement("p");
+  isp.textContent = `ISP: ${data.isp}`
+  
+  cardDiv.append(bayrakImg, cardInfoDiv);
+  cardInfoDiv.append(ip,ulke,coords,sehir,saatDilimi,paraBirimi,isp)
+
+  return cardDiv;
 }
 
 // Buradan sonrasını değiştirmeyin, burası yazdığınız kodu sayfaya uyguluyor.
