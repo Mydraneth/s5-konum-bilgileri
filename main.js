@@ -30,17 +30,9 @@ console.log(ipAdresim);
   Bu fonksiyonda return ettiğiniz veri, Adım 2'de oluşturacağınız component'de argüman olarak kullanılıyor. Bu yüzden, veride hangi key-value çiftleri olduğunu inceleyin.
 */
 
-async function getData(ipAdress) {
-  axios.get(`https://apis.ergineer.com/ipgeoapi/${ipAdress}`).then((response => {
-	return(response.data);
-  })).catch((error)=>{
-	return(error);
-})
-.finally(()=>{
-	console.log('getData() başarıyla çalıştı.')
-})
+async function getData() {
+	return axios.get(`https://apis.ergineer.com/ipgeoapi/${ipAdresim}`).then((response) => {return response.data}).catch(error => {return error}).finally(() => {console.log('getdata çalıştı')})
 }
-
 /*
 	ADIM 2: Alınan veriyi sayfada gösterecek componentı oluşturmak
   getData ile aldığımız konum bazlı veriyi sayfada göstermek için cardOlustur fonskiyonu kullanılacak. DOM metodlarını ve özelliklerini kullanarak aşağıdaki yapıyı oluşturun ve dönün (return edin).
@@ -62,8 +54,24 @@ async function getData(ipAdress) {
   </div>
 */
 
-function cardOlustur(/* kodlar buraya */) {
-  /* kodlar buraya */
+function cardOlustur(data) {
+  const cardDiv = document.createElement("div");
+  cardDiv.classList.add("card");
+  const bayrakImg = document.createElement("img");
+  bayrakImg.src = `https://flaglog.com/codes/standardized-rectangle-120px/${data.ülkeKodu}.png`;
+  
+
+  const cardInfoDiv = document.createElement("div");
+  cardInfoDiv.classList.add("card-info")
+
+  const ip = document.createElement("h3");
+  ip.classList.add("ip");
+  ip.textContent = data.sorgu;
+
+  const ulke = document.createElement("p");
+  ulke.classList.add("ulke");
+  ulke.textContent = `${data.ülke} ()${data.ülkeKodu}`
+  console.log(`${data.ülke} ()${data.ülkeKodu}`)
 }
 
 // Buradan sonrasını değiştirmeyin, burası yazdığınız kodu sayfaya uyguluyor.
