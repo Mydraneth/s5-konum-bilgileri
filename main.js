@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 // Aşağıdaki Fonksiyonu değiştirmeyin.
 async function ipAdresimiAl() {
   return await axios({
@@ -29,8 +30,15 @@ console.log(ipAdresim);
   Bu fonksiyonda return ettiğiniz veri, Adım 2'de oluşturacağınız component'de argüman olarak kullanılıyor. Bu yüzden, veride hangi key-value çiftleri olduğunu inceleyin.
 */
 
-async function getData() {
-  /* kodlar buraya */
+async function getData(ipAdress) {
+  axios.get(`https://apis.ergineer.com/ipgeoapi/${ipAdress}`).then((response => {
+	return(response.data);
+  })).catch((error)=>{
+	return(error);
+})
+.finally(()=>{
+	console.log('getData() başarıyla çalıştı.')
+})
 }
 
 /*
